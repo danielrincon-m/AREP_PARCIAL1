@@ -17,11 +17,6 @@ public class App {
         Gson gson = new Gson();
 
         get("/clima", WeatherHandler.handle);
-
-//        get("*", (Request req, Response res) -> {
-//            res.redirect(Path.Web.INDEX);
-//            return null;
-//        });
     }
 
     static int getPort() {

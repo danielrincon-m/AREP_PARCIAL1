@@ -1,5 +1,6 @@
 package edu.eci.arep.weather;
 
+import edu.eci.arep.cache.WeatherCache;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -27,7 +28,7 @@ public class WeatherHandler {
             paramMap.put("q", place);
             paramMap.put("appid", appid);
             String URL = createURL(baseURL, paramMap);
-            return readURL(URL);
+            return getData(place, URL);
         } else {
             res.status(400);
             return "Error: No se especificó un lugar";
@@ -42,6 +43,20 @@ public class WeatherHandler {
         }
         sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
+    }
+
+    private static String getData(String place, String URL) throws IOException {
+        String cachedPlace = WeatherCache.searchPlace(place);
+        String data;
+        if (cachedPlace == null) {
+            System.out.println("NOT CACHED");
+            data = readURL(URL);
+            WeatherCache.putPlace(place, data);
+            return data;
+        } else {
+            System.out.println("CACHED");
+            return cachedPlace;
+        }
     }
 
     private static String readURL(String URL) throws IOException {
