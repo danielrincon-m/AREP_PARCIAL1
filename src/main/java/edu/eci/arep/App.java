@@ -1,12 +1,11 @@
 package edu.eci.arep;
 
-import com.google.gson.Gson;
 import edu.eci.arep.weather.WeatherHandler;
+import spark.Request;
+import spark.Response;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
-
-import static spark.Spark.*;
+import static spark.Spark.get;
+import static spark.Spark.port;
 
 /**
  * Hello world!
@@ -14,9 +13,11 @@ import static spark.Spark.*;
 public class App {
     public static void main(String[] args) {
         port(getPort());
-        Gson gson = new Gson();
-
         get("/clima", WeatherHandler.handle);
+        get("/", (Request req, Response res) -> {
+            res.redirect("/clima");
+            return null;
+        });
     }
 
     static int getPort() {

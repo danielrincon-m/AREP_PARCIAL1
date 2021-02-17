@@ -1,69 +1,51 @@
-# NanoSpark
+# Clima API
 
-[![danielrincon-m](https://circleci.com/gh/danielrincon-m/AREP_LAB3.svg?style=svg)](https://app.circleci.com/pipelines/github/danielrincon-m/AREP_LAB3)
-[![Heroku](img/heroku_long.png)](https://nanospark.herokuapp.com/Apps/register)
+[![danielrincon-m](https://circleci.com/gh/danielrincon-m/AREP_PARCIAL1.svg?style=svg)](https://app.circleci.com/pipelines/github/danielrincon-m/AREP_PARCIAL1)
+[![Heroku](img/heroku_long.png)](https://clima-api-app.herokuapp.com/clima)
 
 ## Descripción 🎇
 
-NanoSpark es un framework web liviano que nos permite desplegar páginas web de manera sencilla y con muy pocas lineas de código,
-además nos brinda la posibilidad de ver cualquier tipo de archivo en el navegador gracias a su amplia base de datos de
-códigos MimeType. 
+Este proyecto se trata de una API en donde se puede consultar el clima actual de un sitio en concreto, el resultado será
+devuelto en formato JSON, esto se logra consumiendo el servicio de [Open Weather Map](https://home.openweathermap.org/api_keys).
 
-### Prueba de concepto
+### Datos suministrados por la API
 
-La prueba de concepto del Framework se divide en dos fases:
+La API devuelve una cadena en formato JSON con los siguientes datos, entre otros:
 
-#### Primera Fase
-
-Esta fase trata de mostrar la capacidad del servidor web de devolver recursos estáticos de varios tipos al cliente, 
-para esto, a continuación daremos varios ejemplos de archivos estáticos alojados en el servidor.
-
-- **Imagen / ico**: [Imagen en formato .ico](https://nanospark.herokuapp.com/favicon.ico)
-- **Imagen / png**: [Imagen en formato .png](https://nanospark.herokuapp.com/static/img/future.png)
-- **Script / JavaScript**: [Archivo de texto en formato .js](https://nanospark.herokuapp.com/static/js/get.js)
-- **Script / css**: [Archivo de texto en formato .css](https://nanospark.herokuapp.com/static/css/main.css)
-
-Una vez confirmamos que nuestro servidor web era capaz de devolverle al cliente archivos de cualquier tipo al cliente, continuamos
-con la segunda fase, en donde realizamos una aplicación web funcional utilizando nuestro Framework.
-
-#### Segunda Fase
-
-Nuestra aplicación web es un simple registro de usuarios, en donde ponen sus datos básicos (nombre, documento, dirección y teléfono),
-estos registros se realizan en una base de datos PostgreSQL de manera asíncrona por medio de JavaScript. La aplicación consta de dos partes:
-
-- Un formulario de inscripción de usuarios el cual se puede consultar [aquí.](https://nanospark.herokuapp.com/Apps/register)
-- Una página web en donde se pueden consultar los usuarios registrados hasta el momento, la cual se puede consultar
-[aquí](https://nanospark.herokuapp.com/Apps/get)
-
-De esta forma finaliza nuestra prueba de concepto, todos los servicios web están corriendo sobre el mini framework "NanoSpark". Como pudimos
-observar ya se encuentra en una etapa bastante funcional, y está preparado para correr aplicaciones más complejas.
+ - Coordenadas
+    - Latitud
+    - Longitud
+- Clima
+    - Estado climático
+    - Descripción del estado climático
+- Temperatura
+- Sensación térmica
+- Temperatura mínima
+- Temperatura máxima
+- Presión
+- Humedad 
+- Visibilidad
+- Viento 
+    - Velocidad del viento 
+    - Dirección del viento
+- Zona horaria
+- Código del lugar
 
 ### Cómo utilizar el programa
 
-Al abrir el [sitio web de registro](https://nanospark.herokuapp.com/Apps/register) nos encontraremos con una pantalla 
-como esta:
+Al abrir el [sitio web de la API](https://clima-api-app.herokuapp.com/clima) nos encontraremos con un mensaje como este:
 
-![Pantalla Registro](img/PantallaRegistro.jpg)
+![Pantalla Error](img/PantallaError.jpg)
 
-✔️ Esta pantalla contiene un formulario en donde el usuario que se quiera registrar en la aplicación debe ingresar sus
-datos básicos: Nombre, Documento, Teléfono y Dirección.
+Esto se debe a que no hemos consultado ningún lugar en específico, esto lo haremos a través de la URL.
 
-✔️ Una vez ingresados los datos personales podremos registrarnos dándole click al botón de registrar 
-(si no llenamos todos los campos, no nos permitirá registrarnos).
+Como ejemplo, buscaremos los datos de la ciudad de Bogotá, esto lo haremos de la siguiente forma:
 
-✔️ Luego de un breve periodo de tiempo recibiremos una notificación, y nos habremos registrado exitosamente
-en la aplicación.
+![URL](img/URL.jpg)
 
---
+Y obtendremos un resultado como este, el cual contiene los datos climáticos de la ciudad de Bogotá:
 
-Luego de esto nos gustaría verificar si efectivamente quedamos registrados, para ello, podremos ir a la
-[página de consulta](https://nanospark.herokuapp.com/Apps/get), en donde nos encontraremos una pantalla como esta:
-
-![Pantalla Consulta](img/PantallaConsulta.jpg)
-
-✔️ Se trata de una pantalla informativa en donde podremos ver todos los usuarios que se han registrado en la aplicación. 
-
-✔️ Si todo salió bien, deberías poder ver tu nombre en esta pantalla.
+![Resultado](img/Resultado.jpg)
 
 ## Cómo obtener el proyecto 📥
 
@@ -76,7 +58,7 @@ Asegúrese de tener git instalado en su máquina, lo puede hacer desde la [pági
 Clone el proyecto utilizando el siguiente comando:
 
 ```
-git clone https://github.com/danielrincon-m/AREP_LAB3.git
+git clone https://github.com/danielrincon-m/AREP_PARCIAL1.git
 ```
 
 ## Correr las pruebas unitarias 🧪
@@ -105,18 +87,13 @@ También puede ser generada con Maven, clonando el proyecto y ejecutando el sigu
 mvn javadoc:javadoc
 ```
 
-## Documento de diseño 📄
-
-El documento de diseño del programa puede ser encontrado [aquí](Lab3_AREP.pdf).
-
 ## Herramientas utilizadas 🛠️
 
 * [IntelliJ IDE](https://www.jetbrains.com/es-es/idea/download/) - IDE de desarrollo
 * [Maven](https://maven.apache.org/) - Manejo de Dependencias
 * [JUnit](https://junit.org/junit4/) - Pruebas unitarias
 * [GitHub](https://github.com/) - Repositorio de código
-* [Mime-Types](https://github.com/jshttp/mime-types) - Herramienta de consulta de MimeTypes
-* [PostgreSQL](https://www.postgresql.org/) - Base de datos
+* [Open Weather Map](https://openweathermap.org/) - API de donde se extrajeron los datos de clima
 
 ## Autor 🧔
 
